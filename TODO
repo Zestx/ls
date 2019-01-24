@@ -1,0 +1,20 @@
+ ======================
+ |~ft_ls : To-Do list~|
+ ======================
+
+
+ LONG DISPLAY (-l)
+ - Get time!
+ - Format the output (size aligned on the right, ...)
+ 
+ SORTING
+ - last modification time sorting (-t)
+ 
+ ERROR MANAGEMENT
+ - Implement all tests and error checks.
+ - In case of error:
+ 	- Display an informative error message.
+	- Make sure every allocated memory is freed properly.
+	- Leave the program safe or continue, depending on the error.
+		-> USE perror() and ERRNO.
+ - Managing all edge cases and execptions, access not permitted etc..
