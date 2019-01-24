@@ -6,16 +6,12 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 19:45:31 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/01/21 19:25:33 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/01/24 20:48:18 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-//1.return a new path from a current path and a subdirectory:
-//ex:
-//subdir_path("./directory", "subdirectory");
-//will return "./directory/subdirectory"
 char	*subdir_path(const char *current_path, const char *subdir)
 {
 	char	*full_path;
@@ -42,7 +38,6 @@ char	*subdir_path(const char *current_path, const char *subdir)
 	return (full_path);
 }
 
-//2.free linked lists.
 void	free_list(t_entry *entries)
 {
 	t_entry *tmp;
@@ -56,4 +51,18 @@ void	free_list(t_entry *entries)
 		entries = tmp;
 	}
 	entries = NULL;
+}
+
+void	ll_read_create(t_entry **entries, DIR *dir, char *path, char *options)
+{
+	struct dirent	*entry;
+	char			*new_path;
+
+	while ((entry = readdir(dir)))
+	{
+		new_path = subdir_path(path, entry->d_name);
+		if (entry->d_name[0] != '.' || (options && ft_strchr(options, 'a')))
+			*entries =
+			ll_append_node(*entries, ll_create_node(new_path, entry->d_name));
+	}
 }

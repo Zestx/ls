@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 21:36:16 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/01/22 20:57:46 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/01/24 20:47:26 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ typedef struct	s_cursors
 	t_entry *curs_c;
 	t_entry *curs_p;
 }				t_cursors;
-
+void			find_weakest_alpha(t_cursors *llc);
+void			init_cursors(t_cursors *llc, t_entry *lst);
+t_entry			*browse_and_display(t_entry *entries_list, char *dirpath, char *options);
+t_entry			*generate_ll(t_entry *entries_list, DIR *dir, char *dirpath, char *options);
 void			ll_display(t_entry *lst_head, char *dirpath, char *options);
 void			ll_read_create(t_entry **entry_list, DIR *dir, char *path, char *options);
 t_entry			*ll_append_node(t_entry *lst_head, t_entry *newnode);
@@ -48,7 +51,7 @@ t_entry			*ll_append_node_h(t_entry *lst_head, t_entry *newnode);
 t_entry			*ll_create_node(char *path, char *fname);
 t_entry			*ll_add_node(t_entry *lst_head, char *path, char *fname, int where);
 size_t			ll_count_nodes(t_entry *lst);
-int				list(char *dirpath, char *options);
+int				list(char *dirpath, char *options, int recursive);
 char			*parse_args(int argc, char **argv);
 int				display_entry(char *fname, struct stat *fstat, int l_nmode);
 char			*get_mode(mode_t file_mode);

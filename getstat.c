@@ -6,13 +6,12 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 07:00:43 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/01/21 19:26:10 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/01/24 20:11:11 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-//1.get username from user_id.
 char	*get_usrname(uid_t user_id)
 {
 	struct passwd *usr_stats;
@@ -21,7 +20,6 @@ char	*get_usrname(uid_t user_id)
 	return (usr_stats->pw_name);
 }
 
-//2.get group name from groupe_id.
 char	*get_grpname(gid_t group_id)
 {
 	struct group *grp_stats;
@@ -30,7 +28,6 @@ char	*get_grpname(gid_t group_id)
 	return (grp_stats->gr_name);
 }
 
-//3.returns the string containg the file type and rights.
 char	*get_mode(mode_t file_mode)
 {
 	int		i;
@@ -51,7 +48,6 @@ char	*get_mode(mode_t file_mode)
 	return (mode_str);
 }
 
-//4.get file type.
 void	get_type(char *buffer, mode_t file_mode)
 {
 	if (S_ISDIR(file_mode))
@@ -70,7 +66,6 @@ void	get_type(char *buffer, mode_t file_mode)
 		buffer[0] = 's';
 }
 
-//5.get file permissions.
 void	get_perm(char *buffer, mode_t file_mode)
 {
 	if (file_mode & S_IRUSR)
