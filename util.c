@@ -18,6 +18,7 @@ char	*subdir_path(const char *current_path, const char *subdir)
 	int		i;
 	int		j;
 
+//	printf("%s%s%s\n", CMAG, current_path, RESET);
 	if (!(full_path = malloc(strlen(current_path) + strlen(subdir) + 2)))
 		return (NULL);
 	i = 0;
@@ -38,31 +39,33 @@ char	*subdir_path(const char *current_path, const char *subdir)
 	return (full_path);
 }
 
-void	free_list(t_entry *entries)
+void	free_list(t_entry *head)
 {
-	t_entry *tmp;
+	t_entry *node;
 
-	if (!entries)
+	if (!head)
 		return ;
-	while (entries)
+	node = head;
+	while (node)
 	{
-		tmp = entries->next;
-		free(entries);
-		entries = tmp;
+		t_entry *victim = node;
+		node=node->next;;
+		free(victim);
 	}
-	entries = NULL;
 }
 
 void	ll_read_create(t_entry **entries, DIR *dir, char *path, char *options)
 {
 	struct dirent	*entry;
 	char			*new_path;
-
+	
+	new_path = NULL;
 	while ((entry = readdir(dir)))
 	{
 		new_path = subdir_path(path, entry->d_name);
 		if (entry->d_name[0] != '.' || (options && ft_strchr(options, 'a')))
 			*entries =
 			ll_append_node(*entries, ll_create_node(new_path, entry->d_name));
+		free(new_path);
 	}
 }

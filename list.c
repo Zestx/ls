@@ -42,7 +42,7 @@ t_entry	*ll_create_node(char *path, char *fname)
 	node = (t_entry*)malloc(sizeof(t_entry));
 	if (!node)
 		return (NULL);
-	stat(path, &st_buff);
+	lstat(path, &st_buff);
 	node->filename = fname;
 	node->filestat = st_buff;
 	node->next = NULL;
@@ -76,7 +76,7 @@ t_entry	*ll_append_node_h(t_entry *lst_head, t_entry *newnode)
 	return (lst_head);
 }
 
-size_t	ll_count_nodes(t_entry *lst)
+int	ll_count_nodes(t_entry *lst)
 {
 	t_entry	*cursor;
 	size_t	ll_size;

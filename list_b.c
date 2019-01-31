@@ -16,8 +16,11 @@ t_entry	*generate_ll(t_entry *entries, DIR *dir, char *dirpath, char *options)
 {
 	int lst_size;
 
+	lst_size = 1;
 	ll_read_create(&entries, dir, dirpath, options);
 	lst_size = ll_count_nodes(entries);
+	if (lst_size <= 0)
+		return (NULL);
 	entries = ll_alphasort(entries, lst_size, dirpath);
 	if (options && strchr(options, 'r'))
 		entries = ll_revrssort(entries, dirpath);

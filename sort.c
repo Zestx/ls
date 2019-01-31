@@ -54,10 +54,12 @@ t_entry		*ll_alphasort(t_entry *lst, size_t ll_size, char *cwd)
 		else
 			llc.wkst_p->next = llc.wkst_c->next;
 		free(llc.wkst_c);
+		free(path);
 		count++;
 	}
 	path = subdir_path(cwd, lst->filename);
 	sorted_lst = ll_add_node(sorted_lst, path, lst->filename, 0);
+	free(path);
 	free(lst);
 	return (sorted_lst);
 }
@@ -66,7 +68,6 @@ t_entry		*ll_revrssort(t_entry *lst, char *cwd)
 {
 	t_entry		*sorted_lst;
 	t_cursors	llc;
-	t_entry		*ptr;
 	char		*path;
 
 	sorted_lst = NULL;
@@ -78,6 +79,5 @@ t_entry		*ll_revrssort(t_entry *lst, char *cwd)
 		llc.curs_c = llc.curs_c->next;
 	}
 	free(lst);
-	ptr = sorted_lst;
 	return (sorted_lst);
 }

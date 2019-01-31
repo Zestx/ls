@@ -27,22 +27,30 @@ int		list(char *dirpath, char *options, int recursive)
 	t_entry		*ptr;
 	t_entry		*dir_list;
 
-	if (recursive)
-		printf("%s :\n", dirpath);
+	recursive = 0;
+//	if (recursive)
+		printf("%s%s%s :\n", CYAN, dirpath, RESET);
 	entries_list = NULL;
 	dir_list = NULL;
 	if ((dir = opendir(dirpath)) == NULL)
-		exit(EXIT_FAILURE);
+	{
+		recursive += 1;
+		perror("ERROR ");
+		return (-1);
+	}
 	entries_list = generate_ll(entries_list, dir, dirpath, options);
 	dir_list = browse_and_display(entries_list, dirpath, options);
 	ptr = dir_list;
 	while (ptr)
 	{
+	dir_list = browse_and_display(entries_list, dirpath, options);
 		recursive_wpr(ptr, dirpath, options);
 		ptr = ptr->next;
 	}
-	free_list(entries_list);
-	free_list(dir_list);
+	if (entries_list)
+		free_list(entries_list);
+	if (dir_list)
+		free(dir_list);
 	closedir(dir);
 	return (0);
 }
@@ -102,7 +110,7 @@ int		main(int argc, char **argv)
 		if (check_opts("Ralstr", options))
 			exit(EXIT_FAILURE);
 	}
-	if (list(".", options, 0))
+	if (list("/etc", options, 0))
 		exit(EXIT_FAILURE);
 	return (0);
 }
