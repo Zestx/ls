@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 17:22:09 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/01/24 20:09:30 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/02/06 12:29:29 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ t_entry	*ll_create_node(char *path, char *fname)
 	node = (t_entry*)malloc(sizeof(t_entry));
 	if (!node)
 		return (NULL);
-	lstat(path, &st_buff);
+	stat(path, &st_buff);
 	node->filename = fname;
 	node->filestat = st_buff;
 	node->next = NULL;

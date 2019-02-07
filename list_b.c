@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/24 20:32:42 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/01/24 20:37:25 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/02/07 20:39:26 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,23 @@ t_entry	*browse_and_display(t_entry *entries_list, char *dirpath, char *options)
 	while (ptr)
 	{
 		if (options && strchr(options, 'R') && S_ISDIR(ptr->filestat.st_mode))
-			dir_list = ll_add_node(dir_list,
+		{
+			if (ft_strcmp(".", ptr->filename) && ft_strcmp("..", ptr->filename))
+				dir_list = ll_add_node(dir_list,
 					subdir_path(dirpath, ptr->filename), ptr->filename, 0);
+
+		}
 		display_wpr(ptr, options);
 		ptr = ptr->next;
 	}
 	ft_putchar('\n');
 	return (dir_list);
 }
+/*
+t_tolist *add_tolist(t_tolist *head, char *dirname)
+{
+	t_tolist *newnode;
+
+	if (!dirname)
+		return (NULL);
+}*/

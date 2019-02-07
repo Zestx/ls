@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS= -Wall -Wextra -Werror --pedantic -g -O0 
+CFLAGS= -Wall -Wextra -Werror --pedantic
 
 all: ft_ls clean
 

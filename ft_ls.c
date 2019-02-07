@@ -5,8 +5,20 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/02/07 20:26:26 by qbackaer          #+#    #+#             */
+/*   Updated: 2019/02/07 20:32:47 by qbackaer         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_ls.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 06:36:57 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/01/24 20:35:50 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/02/07 20:25:51 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +27,13 @@
 void	recursive_wpr(t_entry *entry, char *path, char *options)
 {
 	char		*subpath;
-
-	subpath = subdir_path(path, entry->filename);
-	list(subpath, options, 1);
+	
+	if (S_ISDIR(entry->filestat.st_mode) && strcmp(entry->filename, "/"))
+	{
+		subpath = subdir_path(path, entry->filename);
+		list(subpath, options, 1);
+		free(subpath);
+	}
 }
 
 int		list(char *dirpath, char *options, int recursive)
@@ -27,8 +43,7 @@ int		list(char *dirpath, char *options, int recursive)
 	t_entry		*ptr;
 	t_entry		*dir_list;
 
-	recursive = 0;
-//	if (recursive)
+	if (recursive)
 		printf("%s%s%s :\n", CYAN, dirpath, RESET);
 	entries_list = NULL;
 	dir_list = NULL;
@@ -43,7 +58,7 @@ int		list(char *dirpath, char *options, int recursive)
 	ptr = dir_list;
 	while (ptr)
 	{
-	dir_list = browse_and_display(entries_list, dirpath, options);
+		//printf("%s\n", ptr->filename);
 		recursive_wpr(ptr, dirpath, options);
 		ptr = ptr->next;
 	}
@@ -86,6 +101,7 @@ char	*parse_args(int argc, char **argv)
 
 int		check_opts(char *valid_opt, char *opt_table)
 {
+
 	while (*opt_table != '\0')
 	{
 		if (!strchr(valid_opt, *opt_table))

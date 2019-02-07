@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 19:45:31 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/01/24 20:48:18 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/02/07 20:42:08 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ char	*subdir_path(const char *current_path, const char *subdir)
 	int		i;
 	int		j;
 
-//	printf("%s%s%s\n", CMAG, current_path, RESET);
-	if (!(full_path = malloc(strlen(current_path) + strlen(subdir) + 2)))
+	if (!(full_path = malloc(strlen(current_path) + strlen(subdir) + 2))) 
 		return (NULL);
 	i = 0;
 	while (current_path[i] != '\0')
@@ -48,9 +47,8 @@ void	free_list(t_entry *head)
 	node = head;
 	while (node)
 	{
-		t_entry *victim = node;
-		node=node->next;;
-		free(victim);
+		free(node);
+		node = node->next;
 	}
 }
 

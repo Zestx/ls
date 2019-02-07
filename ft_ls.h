@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 21:36:16 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/01/24 21:00:36 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/02/07 20:34:17 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,13 @@
 # include <pwd.h>
 # include <grp.h>
 # include "./libft/libft.h"
+# include "time.h"
+
+typedef struct	s_tolist
+{
+	char			*dirname;
+	struct s_tolist	*next;
+}				t_tolist;
 
 typedef struct	s_entry
 {
