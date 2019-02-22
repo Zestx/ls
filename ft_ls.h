@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 21:36:16 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/02/07 20:34:17 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/02/22 17:04:08 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct	s_cursors
 //ft_ls.c
 void			recursive_wpr(t_entry *entry, char *path, char *options);
 int				list(char *dirpath, char *options, int recursive);
-char			*parse_args(int argc, char **argv);
+char			*parse_args(int argc, char **argv, char **dirmap);
 int				check_opts(char *valid_opt, char *opt_table);
 //list.c
 t_entry			*ll_append_node(t_entry *lst_head, t_entry *newnode);
@@ -63,6 +63,9 @@ int			ll_count_nodes(t_entry *lst);
 //list_b.c
 t_entry			*browse_and_display(t_entry *entries_list, char *dirpath, char *options);
 t_entry			*generate_ll(t_entry *entries, DIR *dir, char *dirpath, char *options);
+
+char			**update_dirmap(char **dirmap, char *directory);
+void			free_dirmap(char **dirmap);
 
 void			find_weakest_alpha(t_cursors *llc);
 void			init_cursors(t_cursors *llc, t_entry *lst);

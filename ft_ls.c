@@ -5,20 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/07 20:26:26 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/02/07 20:32:47 by qbackaer         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_ls.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 06:36:57 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/02/07 20:25:51 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/02/22 20:01:09 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +15,7 @@
 void	recursive_wpr(t_entry *entry, char *path, char *options)
 {
 	char		*subpath;
-	
+
 	if (S_ISDIR(entry->filestat.st_mode) && strcmp(entry->filename, "/"))
 	{
 		subpath = subdir_path(path, entry->filename);
@@ -50,7 +38,8 @@ int		list(char *dirpath, char *options, int recursive)
 	if ((dir = opendir(dirpath)) == NULL)
 	{
 		recursive += 1;
-		perror("ERROR ");
+		perror("ERROR_OPENDIR ");
+		ft_putchar('\n');
 		return (-1);
 	}
 	entries_list = generate_ll(entries_list, dir, dirpath, options);
@@ -58,7 +47,6 @@ int		list(char *dirpath, char *options, int recursive)
 	ptr = dir_list;
 	while (ptr)
 	{
-		//printf("%s\n", ptr->filename);
 		recursive_wpr(ptr, dirpath, options);
 		ptr = ptr->next;
 	}
@@ -66,34 +54,51 @@ int		list(char *dirpath, char *options, int recursive)
 		free_list(entries_list);
 	if (dir_list)
 		free(dir_list);
-	closedir(dir);
+	if (closedir(dir) == -1)
+	{
+		perror("ERROR_CLOSEDIR ");
+		exit(EXIT_FAILURE);
+	}
 	return (0);
 }
 
-char	*parse_args(int argc, char **argv)
+char	*parse_args(int argc, char **argv, char **dirmap)
 {
 	int		i;
 	int		j;
 	int		opt_count;
 	char	*opt_table;
+	int		stop_opt;
 
 	if ((opt_table = malloc(41)) == NULL)
 		return (NULL);
 	i = 1;
 	opt_count = 0;
-	while (i < argc && argv[i][0] == '-' && strcmp(argv[i], "--"))
+	stop_opt = 0;
+	while (i < argc)
 	{
-		j = 1;
-		while (argv[i][j] != '\0')
+		if (!strcmp(argv[i], "--"))
 		{
-			if (!strchr(opt_table, argv[i][j]))
-			{
-				opt_table[opt_count] = argv[i][j];
-				opt_table[opt_count + 1] = '\0';
-				opt_count++;
-			}
-			j++;
+			stop_opt = 1;
+			i++;
+			continue ;
 		}
+		if (argv[i][0] == '-')
+		{
+			j = 1;
+			while (argv[i][j] != '\0')
+			{
+				if (!ft_strchr(opt_table, argv[i][j]))
+				{
+					opt_table[opt_count] = argv[i][j];
+					opt_table[opt_count + 1] = '\0';
+					opt_count++;
+				}
+				j++;
+			}
+		}
+		else
+			dirmap = update_dirmap(dirmap, argv[i]);
 		i++;
 	}
 	return (opt_table);
@@ -101,7 +106,6 @@ char	*parse_args(int argc, char **argv)
 
 int		check_opts(char *valid_opt, char *opt_table)
 {
-
 	while (*opt_table != '\0')
 	{
 		if (!strchr(valid_opt, *opt_table))
@@ -117,16 +121,30 @@ int		check_opts(char *valid_opt, char *opt_table)
 int		main(int argc, char **argv)
 {
 	char	*options;
+	char	**dirmap;
 
+	dirmap = NULL;
 	options = NULL;
 	if (argc > 1)
 	{
-		if (!(options = parse_args(argc, argv)))
+		if (!(options = parse_args(argc, argv, dirmap)))
 			exit(EXIT_FAILURE);
 		if (check_opts("Ralstr", options))
 			exit(EXIT_FAILURE);
 	}
-	if (list("/etc", options, 0))
-		exit(EXIT_FAILURE);
+	if (dirmap)
+		while (dirmap)
+		{
+			printf("YES\n");
+			list(*dirmap, options, 0);
+			dirmap++;
+		}
+	else
+		list(".", options, 0);
+	/*
+	   if (list("/var", options, 0))
+	   exit(EXIT_FAILURE);
+	   */
+	free(options);
 	return (0);
 }

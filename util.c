@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 19:45:31 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/02/07 20:42:08 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/02/22 19:27:26 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@ char	*subdir_path(const char *current_path, const char *subdir)
 	int		i;
 	int		j;
 
+	// a supprimer
+	//if (!(strlen(subdir)))
+	//	return (NULL);
+	// fin a supprimer
 	if (!(full_path = malloc(strlen(current_path) + strlen(subdir) + 2))) 
 		return (NULL);
 	i = 0;
@@ -41,14 +45,16 @@ char	*subdir_path(const char *current_path, const char *subdir)
 void	free_list(t_entry *head)
 {
 	t_entry *node;
+	t_entry	*tmp;
 
 	if (!head)
 		return ;
 	node = head;
 	while (node)
 	{
+		tmp = node->next;
 		free(node);
-		node = node->next;
+		node = tmp;
 	}
 }
 
@@ -67,3 +73,57 @@ void	ll_read_create(t_entry **entries, DIR *dir, char *path, char *options)
 		free(new_path);
 	}
 }
+
+char	**update_dirmap(char **dirmap, char *directory)
+{
+	int		size;
+	int		i;
+	int		j;
+	char	**upd_map;
+
+	size = 0;
+	if (dirmap)
+		while (dirmap[size])
+			size++;
+	upd_map = malloc(sizeof(upd_map) * (size + 2));
+	i = 0;
+	while (dirmap)
+	{
+		upd_map[i] = malloc(ft_strlen(dirmap[i]) + 1);
+		j = 0;
+		while (dirmap[i][j] != '\0')
+		{
+			upd_map[i][j] = dirmap[i][j];
+			j++;
+		}
+		upd_map[i][j] = '\0';
+		i++;
+		dirmap++;
+	}
+	j = 0;
+	upd_map[i] = malloc(ft_strlen(directory) + 1);
+	while (upd_map[i][j])
+	{
+		upd_map[i][j] = directory[j];
+		j++;
+	}
+	upd_map[i][j] = '\0';
+	upd_map[i + 1] = NULL;
+	free(dirmap);
+	return (upd_map);
+}
+
+void	free_dirmap(char **dirmap)
+{
+	char **tmp;
+
+	tmp = dirmap;
+	while (tmp)
+	{
+		free(*tmp);
+		tmp++;
+	}
+	free(dirmap);
+}
+
+

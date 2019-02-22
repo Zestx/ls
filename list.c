@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 17:22:09 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/02/06 12:29:29 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/02/18 16:48:25 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,12 @@ t_entry	*ll_add_node(t_entry *lst_head, char *path, char *fname, int where)
 	t_entry	*new_node;
 
 	new_node = ll_create_node(path, fname);
+	if (!new_node)
+	{
+		printf("ERROR_ADDNODE\n");
+		free(lst_head);
+		exit(EXIT_FAILURE);
+	}
 	if (where == 0)
 		lst_head = ll_append_node(lst_head, new_node);
 	else

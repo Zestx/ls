@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/24 20:32:42 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/02/07 20:39:26 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/02/15 14:39:58 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_entry	*browse_and_display(t_entry *entries_list, char *dirpath, char *options)
 {
 	t_entry *ptr;
 	t_entry *dir_list;
+	char 	*subdir;
 
 	dir_list = NULL;
 	ptr = entries_list;
@@ -39,9 +40,12 @@ t_entry	*browse_and_display(t_entry *entries_list, char *dirpath, char *options)
 		if (options && strchr(options, 'R') && S_ISDIR(ptr->filestat.st_mode))
 		{
 			if (ft_strcmp(".", ptr->filename) && ft_strcmp("..", ptr->filename))
-				dir_list = ll_add_node(dir_list,
-					subdir_path(dirpath, ptr->filename), ptr->filename, 0);
+			{
+				subdir = subdir_path(dirpath, ptr->filename);
+				dir_list = ll_add_node(dir_list, subdir, ptr->filename, 0);
+				free(subdir);
 
+			}	
 		}
 		display_wpr(ptr, options);
 		ptr = ptr->next;
