@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 19:45:31 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/02/22 19:27:26 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/02/28 19:22:38 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,6 @@ char	*subdir_path(const char *current_path, const char *subdir)
 	int		i;
 	int		j;
 
-	// a supprimer
-	//if (!(strlen(subdir)))
-	//	return (NULL);
-	// fin a supprimer
 	if (!(full_path = malloc(strlen(current_path) + strlen(subdir) + 2))) 
 		return (NULL);
 	i = 0;
@@ -44,17 +40,16 @@ char	*subdir_path(const char *current_path, const char *subdir)
 
 void	free_list(t_entry *head)
 {
-	t_entry *node;
-	t_entry	*tmp;
+	t_entry *tmp;
 
 	if (!head)
 		return ;
-	node = head;
-	while (node)
+	while (head)
 	{
-		tmp = node->next;
-		free(node);
-		node = tmp;
+		tmp = head->next;
+		free(head->filename);
+		free(head);
+		head = tmp;
 	}
 }
 
@@ -126,4 +121,14 @@ void	free_dirmap(char **dirmap)
 	free(dirmap);
 }
 
+char	*rm_trail_nl(char *str)
+{
+	int len;
 
+	if (!str)
+		return (NULL);
+	len = ft_strlen(str);
+	if (str[len - 2] == '\n')
+		str[len - 2] = '\0';
+	return (str);
+}

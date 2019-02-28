@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 06:36:57 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/02/22 20:01:09 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/02/28 18:42:55 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int		list(char *dirpath, char *options, int recursive)
 	if (entries_list)
 		free_list(entries_list);
 	if (dir_list)
-		free(dir_list);
+		free_list(dir_list);
 	if (closedir(dir) == -1)
 	{
 		perror("ERROR_CLOSEDIR ");
@@ -140,7 +140,7 @@ int		main(int argc, char **argv)
 			dirmap++;
 		}
 	else
-		list(".", options, 0);
+		list("/", options, 0);
 	/*
 	   if (list("/var", options, 0))
 	   exit(EXIT_FAILURE);

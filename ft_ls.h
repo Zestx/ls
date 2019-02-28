@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 21:36:16 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/02/22 17:04:08 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/02/27 19:57:01 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,6 @@ char			*subdir_path(const char *current_path, const char *subdir);
 void			free_list(t_entry *entries);
 t_entry			*ll_alphasort(t_entry *lst, size_t ll_size, char *cwd);
 t_entry			*ll_revrssort(t_entry *lst, char *cwd);
+char			*rm_trail_nl(char *str);
 
 #endif

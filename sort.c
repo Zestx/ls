@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 19:29:01 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/01/24 20:48:05 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/02/28 19:23:47 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ t_entry		*ll_alphasort(t_entry *lst, size_t ll_size, char *cwd)
 			lst = llc.wkst_c->next;
 		else
 			llc.wkst_p->next = llc.wkst_c->next;
+		free(llc.wkst_c->filename);
 		free(llc.wkst_c);
 		free(path);
 		count++;
@@ -60,7 +61,7 @@ t_entry		*ll_alphasort(t_entry *lst, size_t ll_size, char *cwd)
 	path = subdir_path(cwd, lst->filename);
 	sorted_lst = ll_add_node(sorted_lst, path, lst->filename, 0);
 	free(path);
-	free(lst);
+	free_list(lst);
 	return (sorted_lst);
 }
 
