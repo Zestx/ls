@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 21:36:16 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/02/27 19:57:01 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/03/01 19:52:37 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,24 @@ typedef struct	s_cursors
 	t_entry *curs_p;
 }				t_cursors;
 
+//parse.c
+int				parse(int argc, char **argv, char *opt_table, char **dir_table);
+char			*update_options(char *opt_table, char *new_opt);
+char			**update_dirs(char **dir_table, char *new_dir);
+
 //ft_ls.c
 void			recursive_wpr(t_entry *entry, char *path, char *options);
 int				list(char *dirpath, char *options, int recursive);
-char			*parse_args(int argc, char **argv, char **dirmap);
+char			*parse_args(int argc, char **argv);
 int				check_opts(char *valid_opt, char *opt_table);
+
 //list.c
 t_entry			*ll_append_node(t_entry *lst_head, t_entry *newnode);
 t_entry			*ll_append_node_h(t_entry *lst_head, t_entry *newnode);
 t_entry			*ll_create_node(char *path, char *fname);
 t_entry			*ll_add_node(t_entry *lst_head, char *path, char *fname, int where);
 int			ll_count_nodes(t_entry *lst);
+
 //list_b.c
 t_entry			*browse_and_display(t_entry *entries_list, char *dirpath, char *options);
 t_entry			*generate_ll(t_entry *entries, DIR *dir, char *dirpath, char *options);
@@ -83,6 +90,5 @@ char			*subdir_path(const char *current_path, const char *subdir);
 void			free_list(t_entry *entries);
 t_entry			*ll_alphasort(t_entry *lst, size_t ll_size, char *cwd);
 t_entry			*ll_revrssort(t_entry *lst, char *cwd);
-char			*rm_trail_nl(char *str);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 19:29:01 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/02/28 19:23:47 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/03/01 16:57:46 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,13 @@ void		init_cursors(t_cursors *llc, t_entry *lst)
 	llc->wkst_p = llc->curs_p;
 }
 
+void		alpha_free_wpr(t_entry *entry, char *path)
+{
+	free(entry->filename);
+	free(entry);
+	free(path);
+}
+
 t_entry		*ll_alphasort(t_entry *lst, size_t ll_size, char *cwd)
 {
 	t_entry		*sorted_lst;
@@ -53,9 +60,7 @@ t_entry		*ll_alphasort(t_entry *lst, size_t ll_size, char *cwd)
 			lst = llc.wkst_c->next;
 		else
 			llc.wkst_p->next = llc.wkst_c->next;
-		free(llc.wkst_c->filename);
-		free(llc.wkst_c);
-		free(path);
+		alpha_free_wpr(llc.wkst_c, path);
 		count++;
 	}
 	path = subdir_path(cwd, lst->filename);

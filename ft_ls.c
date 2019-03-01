@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 06:36:57 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/02/28 18:42:55 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/03/01 17:25:13 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,27 +62,19 @@ int		list(char *dirpath, char *options, int recursive)
 	return (0);
 }
 
-char	*parse_args(int argc, char **argv, char **dirmap)
+char	*parse_args(int argc, char **argv)
 {
 	int		i;
 	int		j;
 	int		opt_count;
 	char	*opt_table;
-	int		stop_opt;
 
 	if ((opt_table = malloc(41)) == NULL)
 		return (NULL);
 	i = 1;
 	opt_count = 0;
-	stop_opt = 0;
 	while (i < argc)
 	{
-		if (!strcmp(argv[i], "--"))
-		{
-			stop_opt = 1;
-			i++;
-			continue ;
-		}
 		if (argv[i][0] == '-')
 		{
 			j = 1;
@@ -97,8 +89,6 @@ char	*parse_args(int argc, char **argv, char **dirmap)
 				j++;
 			}
 		}
-		else
-			dirmap = update_dirmap(dirmap, argv[i]);
 		i++;
 	}
 	return (opt_table);
@@ -121,30 +111,16 @@ int		check_opts(char *valid_opt, char *opt_table)
 int		main(int argc, char **argv)
 {
 	char	*options;
-	char	**dirmap;
 
-	dirmap = NULL;
 	options = NULL;
 	if (argc > 1)
 	{
-		if (!(options = parse_args(argc, argv, dirmap)))
+		if (!(options = parse_args(argc, argv)))
 			exit(EXIT_FAILURE);
 		if (check_opts("Ralstr", options))
 			exit(EXIT_FAILURE);
 	}
-	if (dirmap)
-		while (dirmap)
-		{
-			printf("YES\n");
-			list(*dirmap, options, 0);
-			dirmap++;
-		}
-	else
-		list("/", options, 0);
-	/*
-	   if (list("/var", options, 0))
-	   exit(EXIT_FAILURE);
-	   */
+	list("/", options, 0);
 	free(options);
 	return (0);
 }

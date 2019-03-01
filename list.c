@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 17:22:09 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/02/28 18:30:22 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/03/01 16:54:30 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ t_entry	*ll_append_node_h(t_entry *lst_head, t_entry *newnode)
 	return (lst_head);
 }
 
-int	ll_count_nodes(t_entry *lst)
+int		ll_count_nodes(t_entry *lst)
 {
 	t_entry	*cursor;
 	size_t	ll_size;
