@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 21:36:16 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/03/04 18:31:07 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/03/04 20:38:06 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,14 @@ t_entry			*ll_append_node(t_entry *lst_head, t_entry *newnode);
 t_entry			*ll_append_node_h(t_entry *lst_head, t_entry *newnode);
 t_entry			*ll_create_node(char *path, char *fname);
 t_entry			*ll_add_node(t_entry *lst_head, char *path, char *fname, int where);
-int			ll_count_nodes(t_entry *lst);
+int				ll_count_nodes(t_entry *lst);
 
 //list_b.c
 t_entry			*browse_and_display(t_entry *entries_list, char *dirpath, char *options);
 t_entry			*generate_ll(t_entry *entries, DIR *dir, char *dirpath, char *options);
 
+void			closedir_wpr(t_entry *entries, t_entry *dirlist, DIR *dir);
+void			free_dirtable(char **dir_table);
 char			**update_dirmap(char **dirmap, char *directory);
 void			free_dirmap(char **dirmap);
 

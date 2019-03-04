@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 19:45:31 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/03/01 16:59:29 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/03/04 19:08:56 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,19 @@ void	free_list(t_entry *head)
 		free(head->filename);
 		free(head);
 		head = tmp;
+	}
+}
+
+void	closedir_wpr(t_entry *entries, t_entry *dirlist, DIR *dir)
+{
+	if (entries)
+		free_list(entries);
+	if (dirlist)
+		free_list(dirlist);
+	if (closedir(dir) == -1)
+	{
+		perror("ERROR_CLOSEDIR ");
+		exit(EXIT_FAILURE);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 16:59:51 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/03/04 18:40:25 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/03/04 20:42:42 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ int		parse(int argc, char **argv, char **opt_table, char ***dir_table)
 		if (!stop_opt && argv[i][0] == '-')
 			*opt_table = update_options(*opt_table, argv[i]);
 		else
+		{
 			*dir_table = update_dirs(*dir_table, argv[i]);
+			printf("-->FREE!\n");
+		}
 		i++;
 	}
 	return (0);
@@ -60,6 +63,8 @@ char	*update_options(char *opt_table, char *new_opt)
 		i++;
 	}
 	upd_table[i] = '\0';
+	if (opt_table)
+		free(opt_table);
 	return (upd_table);
 }
 
@@ -85,6 +90,7 @@ char	**update_dirs(char **dir_table, char *new_dir)
 	strcpy(*ptr, new_dir);
 	*(ptr + 1) = malloc(1);
 	**(ptr + 1) = '\0';
+	free_dirtable(dir_table);
 	return (upd_table);
 }
 
@@ -103,4 +109,20 @@ int		get_dirtable_size(char **dir_table)
 		roam++;
 	}
 	return (size);
+}
+
+void	free_dirtable(char **dir_table)
+{
+	char **roam;
+
+	if (!dir_table)
+		return ;
+	roam = dir_table;
+	while (**roam != '\0')
+	{
+		printf("free...\n");
+		free(*roam);
+		roam++;
+	}
+	free(dir_table);
 }

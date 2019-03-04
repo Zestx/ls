@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 06:36:57 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/03/04 18:54:06 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/03/04 20:39:54 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,21 +50,13 @@ int		list(char *dirpath, char *options, int recursive)
 		recursive_wpr(ptr, dirpath, options);
 		ptr = ptr->next;
 	}
-	if (entries_list)
-		free_list(entries_list);
-	if (dir_list)
-		free_list(dir_list);
-	if (closedir(dir) == -1)
-	{
-		perror("ERROR_CLOSEDIR ");
-		exit(EXIT_FAILURE);
-	}
+	closedir_wpr(entries_list, dir_list, dir);
 	return (0);
 }
 
 int		check_opts(char *valid_opt, char *opt_table)
 {
-	if (!opt_table)
+	if (opt_table == NULL)
 	{
 		opt_table = malloc(2);
 		opt_table[0] = '0';
@@ -100,6 +92,5 @@ int		main(int argc, char **argv)
 		}
 	else
 		list(".", opt_table, 0);
-	free(opt_table);
 	return (0);
 }
