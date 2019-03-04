@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 21:36:16 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/03/01 19:52:37 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/03/04 17:40:03 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct	s_cursors
 int				parse(int argc, char **argv, char *opt_table, char **dir_table);
 char			*update_options(char *opt_table, char *new_opt);
 char			**update_dirs(char **dir_table, char *new_dir);
+int				get_dirtable_size(char **dir_table);
 
 //ft_ls.c
 void			recursive_wpr(t_entry *entry, char *path, char *options);

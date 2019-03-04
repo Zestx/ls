@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 16:59:51 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/03/01 19:58:53 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/03/04 17:43:12 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,12 @@ int		parse(int argc, char **argv, char *opt_table, char **dir_table)
 		else
 			dir_table = update_dirs(dir_table, argv[i]);
 		i++;
-		printf("TABLE: %s\n", opt_table);
+	}
+	printf("OPT_TABLE: %s\n", opt_table);
+	while (dir_table && **dir_table != '\0')
+	{
+		printf("DIR_TABLE: %s\n", *dir_table);
+		dir_table++;
 	}
 	return (0);
 }
@@ -40,12 +45,12 @@ int		parse(int argc, char **argv, char *opt_table, char **dir_table)
 char	*update_options(char *opt_table, char *new_opt)
 {
 	char	*upd_table;
-	int i;
-	int j;
+	int		i;
+	int		j;
 
 	if (opt_table)
 		upd_table = malloc(strlen(opt_table) + strlen(new_opt));
-	else	
+	else
 		upd_table = malloc(strlen(new_opt));
 	i = 0;
 	while (opt_table && i < strlen(opt_table))
@@ -66,7 +71,66 @@ char	*update_options(char *opt_table, char *new_opt)
 
 char	**update_dirs(char **dir_table, char *new_dir)
 {
-	char **upd_table;
+	char	**upd_table;
+	char	**ptr;
+	int		dir_size;
+	int		tab_size;
 
+	dir_size = strlen(new_dir);
+	tab_size = get_dirtable_size(dir_table);
+
+	upd_table = malloc(sizeof(upd_table) * (tab_size + 2));
+	ptr = upd_table;
+	while (tab_size && **dir_table != '\0')
+	{
+		*ptr = malloc(strlen(*dir_table) + 1);
+		strcpy(*ptr, *dir_table);
+		dir_table++;
+		ptr++;
+	}
+	*ptr = malloc(dir_size + 1);
+	strcpy(*ptr, new_dir);
+	*(ptr + 1) = malloc(1);
+	**(ptr + 1) = '\0';
 	return (upd_table);
 }
+
+int		get_dirtable_size(char **dir_table)
+{
+	int		size;
+	char	**roam;
+
+	if (!dir_table)
+		return (0);
+	size = 0;
+	roam = dir_table;
+	while (**roam != '\0')
+	{
+		size++;
+		roam++;	
+	}
+	return (size);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

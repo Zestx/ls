@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 06:36:57 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/03/01 17:25:13 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/03/04 16:21:12 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ int		main(int argc, char **argv)
 		if (check_opts("Ralstr", options))
 			exit(EXIT_FAILURE);
 	}
-	list("/", options, 0);
+	list("/var", options, 0);
 	free(options);
 	return (0);
 }
