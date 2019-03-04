@@ -6,13 +6,13 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 16:59:51 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/03/04 17:43:12 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/03/04 17:52:19 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int		parse(int argc, char **argv, char *opt_table, char **dir_table)
+int		parse(int argc, char **argv, char **opt_table, char **dir_table)
 {
 	int i;
 	int stop_opt;
@@ -28,17 +28,17 @@ int		parse(int argc, char **argv, char *opt_table, char **dir_table)
 			continue;
 		}
 		if (!stop_opt && argv[i][0] == '-')
-			opt_table = update_options(opt_table, argv[i]);
+			*opt_table = update_options(*opt_table, argv[i]);
 		else
 			dir_table = update_dirs(dir_table, argv[i]);
 		i++;
 	}
-	printf("OPT_TABLE: %s\n", opt_table);
-	while (dir_table && **dir_table != '\0')
+	printf("OPT_TABLE: %s\n", *opt_table);
+	/*while (dir_table && **dir_table != '\0')
 	{
 		printf("DIR_TABLE: %s\n", *dir_table);
 		dir_table++;
-	}
+	}*/
 	return (0);
 }
 
