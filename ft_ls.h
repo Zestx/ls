@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 21:36:16 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/03/04 17:49:43 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/03/04 18:31:07 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct	s_cursors
 }				t_cursors;
 
 //parse.c
-int				parse(int argc, char **argv, char **opt_table, char **dir_table);
+int				parse(int argc, char **argv, char **opt_table, char ***dir_table);
 char			*update_options(char *opt_table, char *new_opt);
 char			**update_dirs(char **dir_table, char *new_dir);
 int				get_dirtable_size(char **dir_table);

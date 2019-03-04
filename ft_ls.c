@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 06:36:57 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/03/04 16:21:12 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/03/04 18:54:06 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,40 +62,14 @@ int		list(char *dirpath, char *options, int recursive)
 	return (0);
 }
 
-char	*parse_args(int argc, char **argv)
-{
-	int		i;
-	int		j;
-	int		opt_count;
-	char	*opt_table;
-
-	if ((opt_table = malloc(41)) == NULL)
-		return (NULL);
-	i = 1;
-	opt_count = 0;
-	while (i < argc)
-	{
-		if (argv[i][0] == '-')
-		{
-			j = 1;
-			while (argv[i][j] != '\0')
-			{
-				if (!ft_strchr(opt_table, argv[i][j]))
-				{
-					opt_table[opt_count] = argv[i][j];
-					opt_table[opt_count + 1] = '\0';
-					opt_count++;
-				}
-				j++;
-			}
-		}
-		i++;
-	}
-	return (opt_table);
-}
-
 int		check_opts(char *valid_opt, char *opt_table)
 {
+	if (!opt_table)
+	{
+		opt_table = malloc(2);
+		opt_table[0] = '0';
+		opt_table[1] = '\0';
+	}
 	while (*opt_table != '\0')
 	{
 		if (!strchr(valid_opt, *opt_table))
@@ -110,17 +84,22 @@ int		check_opts(char *valid_opt, char *opt_table)
 
 int		main(int argc, char **argv)
 {
-	char	*options;
+	char	*opt_table;
+	char	**dir_table;
 
-	options = NULL;
-	if (argc > 1)
-	{
-		if (!(options = parse_args(argc, argv)))
-			exit(EXIT_FAILURE);
-		if (check_opts("Ralstr", options))
-			exit(EXIT_FAILURE);
-	}
-	list("/var", options, 0);
-	free(options);
+	opt_table = NULL;
+	dir_table = NULL;
+	parse(argc, argv, &opt_table, &dir_table);
+	if (check_opts("0Ralstr", opt_table))
+		exit(EXIT_FAILURE);
+	if (dir_table)
+		while (**dir_table != '\0')
+		{
+			list(*dir_table, opt_table, 0);
+			dir_table++;
+		}
+	else
+		list(".", opt_table, 0);
+	free(opt_table);
 	return (0);
 }
