@@ -6,11 +6,11 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 19:45:31 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/03/04 19:08:56 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/03/14 18:15:56 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "includes/ft_ls.h"
 
 char	*subdir_path(const char *current_path, const char *subdir)
 {
@@ -18,7 +18,7 @@ char	*subdir_path(const char *current_path, const char *subdir)
 	int		i;
 	int		j;
 
-	if (!(full_path = malloc(strlen(current_path) + strlen(subdir) + 2)))
+	if (!(full_path = malloc(ft_strlen(current_path) + ft_strlen(subdir) + 2)))
 		return (NULL);
 	i = 0;
 	while (current_path[i] != '\0')
@@ -80,4 +80,12 @@ void	ll_read_create(t_entry **entries, DIR *dir, char *path, char *options)
 			ll_append_node(*entries, ll_create_node(new_path, entry->d_name));
 		free(new_path);
 	}
+}
+
+void	format_dirname(char *dirpath)
+{
+	ft_putstr(CYAN);
+	ft_putstr(dirpath);
+	ft_putstr(RESET);
+	ft_putchar('\n');
 }

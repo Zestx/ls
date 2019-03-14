@@ -6,17 +6,17 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 06:36:57 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/03/04 20:39:54 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/03/14 18:03:07 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "includes/ft_ls.h"
 
 void	recursive_wpr(t_entry *entry, char *path, char *options)
 {
 	char		*subpath;
 
-	if (S_ISDIR(entry->filestat.st_mode) && strcmp(entry->filename, "/"))
+	if (S_ISDIR(entry->filestat.st_mode) && ft_strcmp(entry->filename, "/"))
 	{
 		subpath = subdir_path(path, entry->filename);
 		list(subpath, options, 1);
@@ -32,13 +32,12 @@ int		list(char *dirpath, char *options, int recursive)
 	t_entry		*dir_list;
 
 	if (recursive)
-		printf("%s%s%s :\n", CYAN, dirpath, RESET);
+		format_dirname(dirpath);
 	entries_list = NULL;
 	dir_list = NULL;
 	if ((dir = opendir(dirpath)) == NULL)
 	{
 		recursive += 1;
-		perror("ERROR_OPENDIR ");
 		ft_putchar('\n');
 		return (-1);
 	}
@@ -64,9 +63,9 @@ int		check_opts(char *valid_opt, char *opt_table)
 	}
 	while (*opt_table != '\0')
 	{
-		if (!strchr(valid_opt, *opt_table))
+		if (!ft_strchr(valid_opt, *opt_table))
 		{
-			printf("error: -%c is not a valid options.\n", *opt_table);
+			ft_putstr("error: invalid options.\n");
 			return (-1);
 		}
 		opt_table++;

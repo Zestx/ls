@@ -6,11 +6,11 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/24 18:59:56 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/03/01 16:50:35 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/03/14 18:37:37 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "includes/ft_ls.h"
 
 void	display_wpr(t_entry *entry, char *options)
 {
@@ -25,21 +25,24 @@ int		display_entry(char *fname, struct stat *fstats, int l_mode)
 	if (l_mode == 1)
 	{
 		ft_putstr(get_mode(fstats->st_mode));
-		ft_putchar('\t');
+		ft_putstr("  ");
 		ft_putnbr(fstats->st_nlink);
-		ft_putchar('\t');
+		ft_putstr("  ");
 		ft_putstr(get_usrname(fstats->st_uid));
-		ft_putchar('\t');
+		ft_putstr("  ");
 		ft_putstr(get_grpname(fstats->st_gid));
-		ft_putchar('\t');
+		ft_putstr("  ");
 		ft_putnbr(fstats->st_size);
-		ft_putchar('\t');
-		ft_putstr(ctime(&(fstats->st_mtime)));
+		ft_putstr("  ");
+		ft_putstr(format_time(ctime(&(fstats->st_mtime))));
 		ft_putstr(fname);
 		ft_putchar('\n');
 	}
 	else if (l_mode == 0)
-		printf("%s\n", fname);
+	{
+		ft_putstr(fname);
+		ft_putchar('\n');
+	}
 	else
 		return (-1);
 	return (0);
@@ -53,8 +56,35 @@ void	ll_display(t_entry *lst_head, char *dirpath, char *options)
 	while (cursor)
 	{
 		display_wpr(cursor, options);
-		if (options && strchr(options, 'R'))
+		if (options && ft_strchr(options, 'R'))
 			recursive_wpr(cursor, dirpath, options);
 		cursor = cursor->next;
 	}
+}
+
+char	*format_time(char *r_time)
+{
+	char	*f_time;
+	int		col_count;
+	char	*ptr;
+
+	f_time = malloc(15);
+	ptr = f_time;
+	while (*r_time != ' ')
+		r_time++;
+	r_time++;
+	col_count = 0;
+	while (1)
+	{
+		if (*r_time == ':')
+			col_count++;
+		if (col_count >= 2)
+			break ;
+		*ptr = *r_time;
+		ptr++;
+		r_time++;
+	}
+	*ptr++ = ' ';
+	*ptr = '\0';
+	return (f_time);
 }

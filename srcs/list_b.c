@@ -6,11 +6,11 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/24 20:32:42 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/03/01 16:53:30 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/03/14 18:03:54 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "includes/ft_ls.h"
 
 t_entry	*generate_ll(t_entry *entries, DIR *dir, char *dirpath, char *options)
 {
@@ -22,7 +22,7 @@ t_entry	*generate_ll(t_entry *entries, DIR *dir, char *dirpath, char *options)
 	if (lst_size <= 0)
 		return (NULL);
 	entries = ll_alphasort(entries, lst_size, dirpath);
-	if (options && strchr(options, 'r'))
+	if (options && ft_strchr(options, 'r'))
 		entries = ll_revrssort(entries, dirpath);
 	return (entries);
 }
@@ -37,7 +37,8 @@ t_entry	*browse_and_display(t_entry *entries_list, char *dirpath, char *options)
 	ptr = entries_list;
 	while (ptr)
 	{
-		if (options && strchr(options, 'R') && S_ISDIR(ptr->filestat.st_mode))
+		if (options && ft_strchr(options, 'R')
+				&& S_ISDIR(ptr->filestat.st_mode))
 		{
 			if (ft_strcmp(".", ptr->filename) && ft_strcmp("..", ptr->filename))
 			{

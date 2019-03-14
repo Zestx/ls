@@ -6,11 +6,11 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/01 16:59:51 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/03/04 20:42:42 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/03/14 18:04:09 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "includes/ft_ls.h"
 
 int		parse(int argc, char **argv, char **opt_table, char ***dir_table)
 {
@@ -21,7 +21,7 @@ int		parse(int argc, char **argv, char **opt_table, char ***dir_table)
 	stop_opt = 0;
 	while (i < argc)
 	{
-		if (!strcmp("--", argv[i]))
+		if (!ft_strcmp("--", argv[i]))
 		{
 			stop_opt = 1;
 			i++;
@@ -30,10 +30,7 @@ int		parse(int argc, char **argv, char **opt_table, char ***dir_table)
 		if (!stop_opt && argv[i][0] == '-')
 			*opt_table = update_options(*opt_table, argv[i]);
 		else
-		{
 			*dir_table = update_dirs(*dir_table, argv[i]);
-			printf("-->FREE!\n");
-		}
 		i++;
 	}
 	return (0);
@@ -75,19 +72,19 @@ char	**update_dirs(char **dir_table, char *new_dir)
 	int		dir_size;
 	int		tab_size;
 
-	dir_size = strlen(new_dir);
+	dir_size = ft_strlen(new_dir);
 	tab_size = get_dirtable_size(dir_table);
 	upd_table = malloc(sizeof(upd_table) * (tab_size + 2));
 	ptr = upd_table;
 	while (tab_size && **dir_table != '\0')
 	{
-		*ptr = malloc(strlen(*dir_table) + 1);
-		strcpy(*ptr, *dir_table);
+		*ptr = malloc(ft_strlen(*dir_table) + 1);
+		ft_strcpy(*ptr, *dir_table);
 		dir_table++;
 		ptr++;
 	}
 	*ptr = malloc(dir_size + 1);
-	strcpy(*ptr, new_dir);
+	ft_strcpy(*ptr, new_dir);
 	*(ptr + 1) = malloc(1);
 	**(ptr + 1) = '\0';
 	free_dirtable(dir_table);
@@ -120,7 +117,6 @@ void	free_dirtable(char **dir_table)
 	roam = dir_table;
 	while (**roam != '\0')
 	{
-		printf("free...\n");
 		free(*roam);
 		roam++;
 	}

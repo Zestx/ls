@@ -6,11 +6,11 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/21 17:22:09 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/03/01 16:54:30 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/03/14 18:03:32 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "includes/ft_ls.h"
 
 t_entry	*ll_append_node(t_entry *lst_head, t_entry *newnode)
 {
@@ -56,7 +56,7 @@ t_entry	*ll_add_node(t_entry *lst_head, char *path, char *fname, int where)
 	new_node = ll_create_node(path, fname);
 	if (!new_node)
 	{
-		printf("ERROR_ADDNODE\n");
+		ft_putstr("ERROR_ADDNODE\n");
 		free(lst_head);
 		exit(EXIT_FAILURE);
 	}

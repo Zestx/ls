@@ -1,17 +1,22 @@
-CC=clang
-CFLAGS= -Wall -Wextra -Werror --pedantic -g
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror --pedantic -g
+NAME = ft_ls
+INCLUDES = ./includes/ft_ls.h
+SRCS = ./srcs/*.c
+OBJS = display.o ft_ls.o getstat.o list.o list_b.o parse.o sort.o util.o
 
-all: ft_ls clean
+all: $(NAME)
 
-ft_ls: ft_ls.o getstat.o display.o util.o list.o list_b.o sort.o parse.o
+$(NAME): $(OBJS)
 	make -C ./libft 
 	$(CC) $(CFLAGS) $^ -I. ./libft/libft.a -o ft_ls
 
-%.o: %.c
+$(OBJS): $(SRCS)
 	$(CC) $(CFLAGS) -I. -c $^
 
 clean:
 	rm -rf *.o
+	make fclean -C ./libft
 
 fclean: clean
 	rm -rf ft_ls
