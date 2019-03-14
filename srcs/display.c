@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/24 18:59:56 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/03/14 18:37:37 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/03/14 20:24:24 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,15 @@ int		display_entry(char *fname, struct stat *fstats, int l_mode)
 	{
 		ft_putstr(get_mode(fstats->st_mode));
 		ft_putstr("  ");
-		ft_putnbr(fstats->st_nlink);
+		format_link(fstats->st_nlink);
 		ft_putstr("  ");
 		ft_putstr(get_usrname(fstats->st_uid));
 		ft_putstr("  ");
 		ft_putstr(get_grpname(fstats->st_gid));
 		ft_putstr("  ");
-		ft_putnbr(fstats->st_size);
+		format_size(fstats->st_size);
 		ft_putstr("  ");
-		ft_putstr(format_time(ctime(&(fstats->st_mtime))));
+		format_time(ctime(&(fstats->st_mtime)));
 		ft_putstr(fname);
 		ft_putchar('\n');
 	}
@@ -62,7 +62,7 @@ void	ll_display(t_entry *lst_head, char *dirpath, char *options)
 	}
 }
 
-char	*format_time(char *r_time)
+void	format_time(char *r_time)
 {
 	char	*f_time;
 	int		col_count;
@@ -86,5 +86,6 @@ char	*format_time(char *r_time)
 	}
 	*ptr++ = ' ';
 	*ptr = '\0';
-	return (f_time);
+	ft_putstr(f_time);
+	free(f_time);
 }

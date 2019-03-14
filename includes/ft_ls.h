@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 21:36:16 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/03/14 18:28:21 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/03/14 20:24:23 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,8 @@ void			free_list(t_entry *entries);
 t_entry			*ll_alphasort(t_entry *lst, size_t ll_size, char *cwd);
 t_entry			*ll_revrssort(t_entry *lst, char *cwd);
 void			format_dirname(char *dirpath);
-char			*format_time(char *r_time);
+void			format_time(char *r_time);
+void			format_size(int size);
+void			format_link(int link);
+
 #endif
