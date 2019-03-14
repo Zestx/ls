@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 07:00:43 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/03/14 18:03:19 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/03/14 20:40:43 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,12 @@ char	*get_grpname(gid_t group_id)
 	return (grp_stats->gr_name);
 }
 
-char	*get_mode(mode_t file_mode)
+void	get_mode(mode_t file_mode)
 {
 	int		i;
 	char	*mode_str;
 
 	mode_str = malloc(11);
-	if (mode_str == NULL)
-		return (NULL);
 	i = 0;
 	while (i < 10)
 	{
@@ -45,7 +43,8 @@ char	*get_mode(mode_t file_mode)
 	mode_str[10] = '\0';
 	get_type(mode_str, file_mode);
 	get_perm(mode_str, file_mode);
-	return (mode_str);
+	ft_putstr(mode_str);
+	free(mode_str);
 }
 
 void	get_type(char *buffer, mode_t file_mode)

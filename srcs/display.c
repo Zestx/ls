@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/24 18:59:56 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/03/14 20:24:24 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/03/14 20:40:09 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		display_entry(char *fname, struct stat *fstats, int l_mode)
 {
 	if (l_mode == 1)
 	{
-		ft_putstr(get_mode(fstats->st_mode));
+		get_mode(fstats->st_mode);
 		ft_putstr("  ");
 		format_link(fstats->st_nlink);
 		ft_putstr("  ");

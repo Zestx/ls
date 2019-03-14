@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/14 21:36:16 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/03/14 20:24:23 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/03/14 21:00:18 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void			ll_display
 void			ll_read_create
 				(t_entry **entry_lisa, DIR *dir, char *path, char *options);
 int				display_entry(char *fname, struct stat *fstat, int l_nmode);
-char			*get_mode(mode_t file_mode);
+void			get_mode(mode_t file_mode);
 char			*get_usrname(uid_t user_id);
 char			*get_grpname(gid_t groupd_id);
 void			get_type(char *buffer, mode_t file_mode);
@@ -94,5 +94,5 @@ void			format_dirname(char *dirpath);
 void			format_time(char *r_time);
 void			format_size(int size);
 void			format_link(int link);
-
+void			free_dirlist(char **dirlist);
 #endif

@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 19:47:50 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/03/14 20:15:59 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/03/14 20:54:08 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,19 @@ void	format_link(int link)
 	}
 	ft_putstr(raw_link);
 	free(raw_link);
+}
+
+void	free_dirlist(char **dirlist)
+{
+	char *roam;
+
+	if (!dirlist)
+		return;
+	roam = *dirlist;
+	while (roam)
+	{
+		free(roam);
+		roam++;
+	}
+	free(dirlist);
 }

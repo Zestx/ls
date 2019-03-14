@@ -6,7 +6,7 @@
 /*   By: qbackaer <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/15 06:36:57 by qbackaer          #+#    #+#             */
-/*   Updated: 2019/03/14 18:03:07 by qbackaer         ###   ########.fr       */
+/*   Updated: 2019/03/14 21:00:48 by qbackaer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,8 @@ int		main(int argc, char **argv)
 		}
 	else
 		list(".", opt_table, 0);
+	if (opt_table)
+		free(opt_table);
+	free_dirlist(dir_table);
 	return (0);
 }
